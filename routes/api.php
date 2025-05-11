@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\PharmacyAuthController;
+use App\Http\Controllers\Api\Auth\WarehouseAuthController;
+
 
 
 Route::get('/user', function (Request $request) {
@@ -15,4 +17,10 @@ Route::get('/testww', function () {
 Route::prefix('pharmacy')->group(function () {
     Route::post('/register', [PharmacyAuthController::class, 'register']);
     Route::post('/login', [PharmacyAuthController::class, 'login']);
+});
+
+Route::prefix('warehouse-owner')->group(function () {
+    Route::post('/login', [WarehouseAuthController::class, 'login']);
+    Route::post('/logout', [WarehouseAuthController::class, 'logout'])
+         ->middleware('auth:sanctum');
 });
