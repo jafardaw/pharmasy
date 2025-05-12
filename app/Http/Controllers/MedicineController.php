@@ -12,6 +12,8 @@ class MedicineController extends Controller
     public function index()
     {
         return response()->json([
+            'message'=> "تم جلب االادوية بنجاح ",
+            "state"=>"true",
             'listMedicine' => Medicine::all()
         ]);
         
@@ -147,7 +149,41 @@ class MedicineController extends Controller
         ], 500);
     }
 }
+/////////////////////////////////////
+public function searchMedicines(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'search_term' => 'nullable|string|max:255',
+        'category' => 'nullable|string|max:255'
+    ]);
 
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+    }
+
+    $query = Medicine::query();
+
+    if ($request->has('search_term')) {
+        $query->where(function($q) use ($request) {
+            $q->where('commercial_name', 'LIKE', '%'.$request->search_term.'%')
+              ->orWhere('scientific_name', 'LIKE', '%'.$request->search_term.'%');
+        });
+    }
+
+    if ($request->has('category')) {
+        $query->where('category', $request->category);
+    }
+
+    $medicines = $query->where('quantity', '>', 0)
+                      ->orderBy('commercial_name')
+                      ->get();
+
+    return response()->json([
+        'message' => 'تم جلب نتائج البحث بنجاح',
+        'data' => $medicines
+        
+    ]);
+}
     
     
 }

@@ -39,6 +39,10 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        'pharmacy' => [
+            'driver' => 'sanctum',
+            'provider' => 'pharmacies',
+    ],
         ],
     ],
 
@@ -64,11 +68,11 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+    'pharmacies' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Pharmacy::class,
+    ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

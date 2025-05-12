@@ -15,7 +15,6 @@ class Pharmacy extends Authenticatable
         'pharmacy_name',
         'region',
         'phone',
-        'image_path',
         'password'
     ];
 
@@ -23,4 +22,17 @@ class Pharmacy extends Authenticatable
         'password',
         'remember_token'
     ];
+
+    public function orders()
+{
+    return $this->hasMany(Order::class, 'pharmacist_id');
+}
+public function favorites()
+{
+    return $this->belongsToMany(Medicine::class, 'favorite_medicines')->withTimestamps();
+}
+
+
+
+
 }

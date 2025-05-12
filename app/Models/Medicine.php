@@ -18,4 +18,14 @@ class Medicine extends Model
         'expiry_date',
         'price'
     ];
+    public function orderItems()
+{
+    return $this->hasMany(OrderItem::class);
+}
+public function favoritedBy()
+{
+    return $this->belongsToMany(Pharmacy::class, 'favorite_medicines')
+                ->withTimestamps();
+}
+
 }
