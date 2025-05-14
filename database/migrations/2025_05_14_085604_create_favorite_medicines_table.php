@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('favorite_medicines', function (Blueprint $table) {
             $table->id();
-                $table->foreignId('pharmacy_id')->constrained()->onDelete('cascade');
-    $table->foreignId('medicine_id')->constrained()->onDelete('cascade');
+            $table->foreignId('pharmacy_id')->constrained()->onDelete('cascade');
+            $table->foreignId('medicine_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-             $table->unique(['pharmacy_id', 'medicine_id']); 
         });
     }
 

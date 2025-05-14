@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\Auth\PharmacyAuthController;
 use App\Http\Controllers\Api\Auth\WarehouseAuthController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\Api\FavoriteController;
+// use App\Http\Controllers\FavoritePharmController;
+use App\Http\Controllers\PreferingModel;
+app\Http\Controllers\PreferingModel.php
 
 
 
@@ -28,9 +30,10 @@ Route::prefix('pharmacy')->group(function () {
                     Route::apiResource('medicines', MedicineController::class)->middleware('auth:sanctum');
     Route::post('/orders', [OrderController::class, 'store'])->middleware('auth:sanctum');
     Route::middleware('auth:sanctum')->get('/my-orders', [OrderController::class, 'myOrders']);
-           Route::get('/getfavorite', [FavoriteController::class, 'index']);
-        Route::post('/toggle', [FavoriteController::class, 'toggle']);
-    Route::get('/check/{medicineId}', [FavoriteController::class, 'check']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/favorites', [PreferingModel::class, 'index']);
+    Route::post('/favorites/toggle', [PreferingModel::class, 'toggleFavorite']);
+});
 
 
 
