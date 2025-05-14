@@ -96,7 +96,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | The number of seconds before a password confirmation times out.
-    |
+    |                                                                                                                               
     */
 
     'password_timeout' => 10800,
